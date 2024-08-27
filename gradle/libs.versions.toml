@@ -14,6 +14,7 @@ hiltNavigationFragment = "1.2.0"
 workRuntimeKtx = "2.9.0"
 roomKtx = "2.6.1"
 composeNavigation = "2.8.0-beta04"
+gson = "2.10.1"
 
 
 [libraries]
@@ -43,6 +44,8 @@ androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomKtx" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomKtx" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
