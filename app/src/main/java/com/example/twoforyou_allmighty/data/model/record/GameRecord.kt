@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "game_record_database")
 data class GameRecord(
     @PrimaryKey(autoGenerate = true)
-    val key: Int,
-    val round: List<Round>,
-    val currentRound: Int,
+    val key: Int = 0,
+    val round: List<Round> = emptyList(),
+    val currentRound: Int = 1,
 )

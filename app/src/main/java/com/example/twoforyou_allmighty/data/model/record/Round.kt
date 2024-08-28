@@ -5,9 +5,9 @@ import com.example.twoforyou_allmighty.data.model.player.Player
 
 data class Round(
     val players: List<Player> = listOf(),
-    val mightyPlayer : Player,
-    val friendPlayer : Player,
-    val pledgeTrickNumber : Int,
-    val actualTrickNumber : Int,
-    val trumpSuit : Trump_Suit
+    val mightyPlayer : Player = Player(),
+    val friendPlayer : Player = Player(),
+    val pledgeTrickNumber : Int = 0,
+    val actualTrickNumber : Int = 0,
+    val trumpSuit : Trump_Suit = Trump_Suit.SPADE
 )
