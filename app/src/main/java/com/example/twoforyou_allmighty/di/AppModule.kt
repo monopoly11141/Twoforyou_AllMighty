@@ -5,7 +5,9 @@ import androidx.room.Room
 import com.example.twoforyou_allmighty.data.db.local.GameRecordDao
 import com.example.twoforyou_allmighty.data.db.local.GameRecordDb
 import com.example.twoforyou_allmighty.data.mighty_record.MightyRecordRepositoryImpl
+import com.example.twoforyou_allmighty.data.record_detail.RecordDetailRepositoryImpl
 import com.example.twoforyou_allmighty.domain.mighty_record.MightyRecordRepository
+import com.example.twoforyou_allmighty.domain.record_detail.RecordDetailRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +25,12 @@ class AppModule {
         gameRecordDao: GameRecordDao
     ): MightyRecordRepository {
         return MightyRecordRepositoryImpl(gameRecordDao)
+    }
+
+    @Provides
+    @Singleton
+    fun providesRecordDetailRepository() : RecordDetailRepository {
+        return RecordDetailRepositoryImpl()
     }
 
     @Provides

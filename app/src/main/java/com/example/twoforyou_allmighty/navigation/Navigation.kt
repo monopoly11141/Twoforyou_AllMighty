@@ -3,12 +3,14 @@ package com.example.twoforyou_allmighty.navigation
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.twoforyou_allmighty.ui.mighty_record.MightyRecordScreen
+import com.example.twoforyou_allmighty.ui.record_detail.RecordDetailScreen
 
 @Composable
 fun Navigation(
@@ -22,5 +24,21 @@ fun Navigation(
         composable(route = Screen.MightyRecordScreen.route) {
             MightyRecordScreen(navController = navController)
         }
+
+        composable(route = "${Screen.RecordDetailScreen.route}/{recordKey}",
+            arguments = listOf(
+                navArgument("recordKey") {
+                    type = NavType.IntType
+                }
+            )
+        ) {entry ->
+            val recordKey = entry.arguments?.getInt("recordKey")!!
+            RecordDetailScreen(
+                navController = navController,
+                recordKey = recordKey,
+            )
+        }
+
+
     }
 }
