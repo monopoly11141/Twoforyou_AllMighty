@@ -9,5 +9,5 @@ data class RecordUseCases(
     val addRecord: AddRecord,
     val deleteAllRecord: DeleteAllRecord,
     val deleteRecord: DeleteRecord,
-    val getAddRecord: GetAllRecord
+    val getAllRecord: GetAllRecord
 )

@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.ui.theme
+package com.example.twoforyou_allmighty.feature_record.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

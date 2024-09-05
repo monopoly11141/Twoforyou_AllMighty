@@ -6,6 +6,11 @@ import com.example.twoforyou_allmighty.feature_record.data.db.RecordDao
 import com.example.twoforyou_allmighty.feature_record.data.db.RecordDb
 import com.example.twoforyou_allmighty.feature_record.data.repository_impl.RecordRepositoryImpl
 import com.example.twoforyou_allmighty.feature_record.domain.repository.RecordRepository
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.RecordUseCases
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.AddRecord
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.DeleteAllRecord
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.DeleteRecord
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.GetAllRecord
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +37,14 @@ class AppModule {
     @Singleton
     fun providesRecordRepository(recordDao: RecordDao): RecordRepository = RecordRepositoryImpl(recordDao)
 
+    @Provides
+    @Singleton
+    fun providesRecordUseCases(recordRepository: RecordRepository): RecordUseCases =
+        RecordUseCases(
+            addRecord = AddRecord(recordRepository),
+            deleteAllRecord = DeleteAllRecord(recordRepository),
+            deleteRecord = DeleteRecord(recordRepository),
+            getAllRecord = GetAllRecord(recordRepository)
+        )
 
 }
