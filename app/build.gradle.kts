@@ -67,6 +67,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    //local test
+    testImplementation(libs.truth)
+    testImplementation(libs.mockwebserver)
+    testImplementation(libs.mockk)
+
+    //instrumentation test
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestAnnotationProcessor(libs.hilt.compiler)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.mockk)
+
     //navigation
     implementation(libs.navgiation.compose)
     //serialization for navigation
@@ -87,5 +99,4 @@ dependencies {
     kapt (libs.androidx.room.room.compiler)
     //gson
     implementation(libs.gson)
-    //firebase
 }

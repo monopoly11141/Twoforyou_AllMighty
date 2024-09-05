@@ -1,7 +1,7 @@
-package com.example.twoforyou_allmighty.data.model.record
+package com.example.twoforyou_allmighty.feature_record.domain.model.record
 
-import com.example.twoforyou_allmighty.data.model.helper.Trump_Suit
-import com.example.twoforyou_allmighty.data.model.player.Player
+import com.example.twoforyou_allmighty.feature_record.domain.model.helper.Trump_Suit
+import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 
 data class Round(
     val players: List<Player> = listOf(),

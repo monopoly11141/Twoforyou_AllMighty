@@ -1,10 +1,10 @@
-package com.example.twoforyou_allmighty.data.model.record
+package com.example.twoforyou_allmighty.feature_record.domain.model.record
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "game_record_database")
-data class GameRecord(
+@Entity(tableName = "record_database")
+data class Record(
     @PrimaryKey(autoGenerate = true)
     val key: Int = 0,
     val round: List<Round> = emptyList(),

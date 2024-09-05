@@ -1,14 +1,12 @@
 package com.example.twoforyou_allmighty.navigation
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.compositionLocalOf
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.twoforyou_allmighty.feature_record.presentation.Screen
 import com.example.twoforyou_allmighty.ui.mighty_record.MightyRecordScreen
 import com.example.twoforyou_allmighty.ui.record_detail.RecordDetailScreen
 

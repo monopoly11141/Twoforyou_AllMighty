@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.data.model.helper
+package com.example.twoforyou_allmighty.feature_record.domain.model.helper
 
 enum class Trump_Suit {
     SPADE,

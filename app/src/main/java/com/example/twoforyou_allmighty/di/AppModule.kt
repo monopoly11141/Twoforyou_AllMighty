@@ -2,12 +2,10 @@ package com.example.twoforyou_allmighty.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.twoforyou_allmighty.data.db.local.GameRecordDao
-import com.example.twoforyou_allmighty.data.db.local.GameRecordDb
-import com.example.twoforyou_allmighty.data.mighty_record.MightyRecordRepositoryImpl
-import com.example.twoforyou_allmighty.data.record_detail.RecordDetailRepositoryImpl
-import com.example.twoforyou_allmighty.domain.mighty_record.MightyRecordRepository
-import com.example.twoforyou_allmighty.domain.record_detail.RecordDetailRepository
+import com.example.twoforyou_allmighty.feature_record.data.db.RecordDao
+import com.example.twoforyou_allmighty.feature_record.data.db.RecordDb
+import com.example.twoforyou_allmighty.feature_record.data.repository_impl.RecordRepositoryImpl
+import com.example.twoforyou_allmighty.feature_record.domain.repository.RecordRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,26 +19,18 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providesMightyRecordRepository(
-        gameRecordDao: GameRecordDao
-    ): MightyRecordRepository {
-        return MightyRecordRepositoryImpl(gameRecordDao)
-    }
+    fun providesRecordDao(recordDb: RecordDb): RecordDao = recordDb.recordDao
 
     @Provides
     @Singleton
-    fun providesRecordDetailRepository() : RecordDetailRepository {
-        return RecordDetailRepositoryImpl()
-    }
-
-    @Provides
-    fun providesGameRecordDao(gameRecordDb: GameRecordDb): GameRecordDao = gameRecordDb.gameRecordDao
-
-    @Provides
-    @Singleton
-    fun providesGameRecordDb(@ApplicationContext context: Context): GameRecordDb =
-        Room.databaseBuilder(context, GameRecordDb::class.java, "game_record_database")
+    fun providesRecordDb(@ApplicationContext context: Context): RecordDb =
+        Room.databaseBuilder(context, RecordDb::class.java, "record_database")
             .fallbackToDestructiveMigration()
             .build()
+
+    @Provides
+    @Singleton
+    fun providesRecordRepository(recordDao: RecordDao): RecordRepository = RecordRepositoryImpl(recordDao)
+
 
 }
