@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.theme
+package com.example.twoforyou_allmighty.feature_record.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

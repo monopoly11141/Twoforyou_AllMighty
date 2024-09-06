@@ -22,6 +22,6 @@ interface RecordDao {
     @Query("DELETE FROM record_database")
     suspend fun deleteAllRecord()
 
-    @Query("SELECT * FROM record_database WHERE  `key` = :key LIMIT 1")
-    suspend fun getRecordByKey(key: Int): Record
+    @Query("SELECT * FROM record_database WHERE  id = :id LIMIT 1")
+    suspend fun getRecordById(id: Int): Record
 }

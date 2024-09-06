@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface RecordRepository {
     fun getAllRecord(): Flow<List<Record>>
 
+    suspend fun getRecordById(id: Int) : Record?
+
     suspend fun insertRecord(record: Record)
 
     suspend fun deleteRecord(record: Record)

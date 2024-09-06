@@ -1,6 +1,5 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.theme
+package com.example.twoforyou_allmighty.feature_record.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

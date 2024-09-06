@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.record
+package com.example.twoforyou_allmighty.feature_record.ui.record
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,13 +10,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
@@ -50,7 +48,7 @@ fun RecordScreen(
                     .fillMaxSize()
             ) {
                 items(state.entireRecord) { record ->
-                    Text(text = record.key.toString())
+                    Text(text = record.id.toString())
                     HorizontalDivider()
                 }
             }

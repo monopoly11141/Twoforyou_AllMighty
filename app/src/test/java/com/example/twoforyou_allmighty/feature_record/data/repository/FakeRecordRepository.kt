@@ -1,32 +1,33 @@
-package com.example.twoforyou_allmighty.feature_record.data.repository_impl
+package com.example.twoforyou_allmighty.feature_record.data.repository
 
-import com.example.twoforyou_allmighty.feature_record.data.db.RecordDao
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 import com.example.twoforyou_allmighty.feature_record.domain.repository.RecordRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
-class RecordRepositoryImpl(
-    private val recordDao: RecordDao
-) : RecordRepository {
+class FakeRecordRepository() : RecordRepository {
+
+    private val recordList = mutableListOf<Record>()
 
     override fun getAllRecord(): Flow<List<Record>> {
-        return recordDao.getAllRecord()
+        return flow { emit(recordList) }
     }
 
     override suspend fun getRecordById(id: Int): Record? {
-        return recordDao.getRecordById(id)
+        return recordList.find { it.id == id }
     }
 
     override suspend fun insertRecord(record: Record) {
-        recordDao.insertRecord(record)
+        recordList.add(record)
     }
 
     override suspend fun deleteRecord(record: Record) {
-        recordDao.deleteRecord(record)
+        recordList.remove(record)
     }
 
     override suspend fun deleteAllRecord() {
-        recordDao.deleteAllRecord()
+        recordList.clear()
     }
+
 
 }

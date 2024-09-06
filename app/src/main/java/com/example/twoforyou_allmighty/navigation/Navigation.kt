@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.twoforyou_allmighty.feature_record.presentation.record.RecordScreen
-import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
+import com.example.twoforyou_allmighty.feature_record.ui.record.RecordScreen
+import com.example.twoforyou_allmighty.feature_record.ui.screen.Screen
 
 @Composable
 fun Navigation(

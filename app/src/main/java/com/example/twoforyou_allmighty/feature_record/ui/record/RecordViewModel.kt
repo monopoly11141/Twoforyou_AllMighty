@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.record
+package com.example.twoforyou_allmighty.feature_record.ui.record
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +35,11 @@ class RecordViewModel @Inject constructor(
             is RecordEvent.DeleteRecord -> {
                 viewModelScope.launch {
                     recordUseCases.deleteRecord(recordEvent.record)
+                }
+            }
+            is RecordEvent.DeleteAllRecord -> {
+                viewModelScope.launch {
+                    recordUseCases.deleteAllRecord()
                 }
             }
         }
