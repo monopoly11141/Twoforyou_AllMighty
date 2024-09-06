@@ -17,7 +17,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.ui.record.component.RecordItem
 
 @Composable
 fun RecordScreen(
@@ -31,7 +33,9 @@ fun RecordScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    viewModel.onEvent(RecordEvent.AddRecord(Record()))
+                    viewModel.onEvent(RecordEvent.AddRecord(Record(
+                        players = listOf(Player("a"), Player("b"), Player("c"), Player("d"), Player("e"))
+                    )))
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
@@ -48,7 +52,7 @@ fun RecordScreen(
                     .fillMaxSize()
             ) {
                 items(state.entireRecord) { record ->
-                    Text(text = record.id.toString())
+                    RecordItem(record, {}, { viewModel.onEvent(RecordEvent.DeleteRecord(record)) })
                     HorizontalDivider()
                 }
             }
