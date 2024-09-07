@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.ui.screen
+package com.example.twoforyou_allmighty.feature_record.presentation.screen
 
 sealed class Screen(val route: String) {
 

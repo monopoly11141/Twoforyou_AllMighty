@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.ui.record
+package com.example.twoforyou_allmighty.feature_record.presentation.record
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
