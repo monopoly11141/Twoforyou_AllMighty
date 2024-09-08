@@ -18,7 +18,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.presentation.add_record.AddRecordScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.record.component.RecordItem
+import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
 
 @Composable
 fun RecordScreen(
@@ -32,9 +34,7 @@ fun RecordScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    viewModel.onEvent(RecordEvent.AddRecord(Record(
-                        players = listOf(Player("a"), Player("b"), Player("c"), Player("d"), Player("e"))
-                    )))
+                   navController.navigate(Screen.AddRecordScreen.route)
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
