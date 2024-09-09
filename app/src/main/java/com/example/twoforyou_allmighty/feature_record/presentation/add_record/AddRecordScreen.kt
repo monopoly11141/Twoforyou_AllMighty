@@ -19,7 +19,7 @@ fun AddRecordScreen(
     viewModel: AddRecordViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    val state = viewModel.state.value
+    //val state = viewModel.state.value
 
     Scaffold { paddingValues ->
         Column(
@@ -27,16 +27,16 @@ fun AddRecordScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            LazyColumn {
-                Log.d("TAG", "AddRecordScreen : goes into ")
-                items(state.players) { player ->
-                    Log.d("TAG", "AddRecordScreen : ${player.name}, ${player.score}")
-                    TextField(value = player.name, onValueChange = {
-                        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(player, player.name))
-                    })
-
-                }
-            }
+//            LazyColumn {
+//                Log.d("TAG", "AddRecordScreen : goes into ")
+//                items(state.players) { player ->
+//                    Log.d("TAG", "AddRecordScreen : ${player.name}, ${player.score}")
+//                    TextField(value = player.name, onValueChange = {
+//                        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(player, player.name))
+//                    })
+//
+//                }
+//            }
         }
     }
 }
