@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -19,7 +18,7 @@ fun AddRecordScreen(
     viewModel: AddRecordViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
-    //val state = viewModel.state.value
+    val state = viewModel.playerListState
 
     Scaffold { paddingValues ->
         Column(
@@ -27,16 +26,14 @@ fun AddRecordScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-//            LazyColumn {
-//                Log.d("TAG", "AddRecordScreen : goes into ")
-//                items(state.players) { player ->
-//                    Log.d("TAG", "AddRecordScreen : ${player.name}, ${player.score}")
-//                    TextField(value = player.name, onValueChange = {
-//                        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(player, player.name))
-//                    })
-//
-//                }
-//            }
+            LazyColumn {
+                Log.d("TAG", "AddRecordScreen : goes into ")
+                items(state.size) { index ->
+                    TextField(value = state.toList()[index].name, onValueChange = { name ->
+                        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(index, name))
+                    })
+                }
+            }
         }
     }
 }
