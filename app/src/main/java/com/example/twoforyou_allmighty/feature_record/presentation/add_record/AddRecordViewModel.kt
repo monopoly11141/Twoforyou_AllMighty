@@ -19,33 +19,18 @@ class AddRecordViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _playerListState = mutableStateListOf(
-        AddRecordPlayerTextFieldUiState(
-            name = "플레이어 1",
-            hint = "플레이어 1"
-        ),
-        AddRecordPlayerTextFieldUiState(
-            name = "플레이어 2",
-            hint = "플레이어 2"
-        ),
-        AddRecordPlayerTextFieldUiState(
-            name = "플레이어 3",
-            hint = "플레이어 3"
-        ),
-        AddRecordPlayerTextFieldUiState(
-            name = "플레이어 4",
-            hint = "플레이어 4"
-        ),
-        AddRecordPlayerTextFieldUiState(
-            name = "플레이어 5",
-            hint = "플레이어 5"
-        ),
+        AddRecordPlayerTextFieldUiState(name = ""),
+        AddRecordPlayerTextFieldUiState(name = ""),
+        AddRecordPlayerTextFieldUiState(name = ""),
+        AddRecordPlayerTextFieldUiState(name = ""),
+        AddRecordPlayerTextFieldUiState(name = "")
     )
+
     val playerListState: SnapshotStateList<AddRecordPlayerTextFieldUiState> = _playerListState
 
-    val _titleState = mutableStateOf(
+    private val _titleState = mutableStateOf(
         AddRecordTitleUiState(
-            title = "제목",
-            hint = "제목을 입력하세요..."
+            title = ""
         )
     )
     val titleState: State<AddRecordTitleUiState> = _titleState
@@ -75,11 +60,13 @@ class AddRecordViewModel @Inject constructor(
                     recordUseCases.addRecord(
                         Record(
                             id = 0,
+                            title = _titleState.value.title,
                             players = _playerListState.toList().map { Player(it.name, it.score) },
                         )
                     )
                 }
             }
+
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.twoforyou_allmighty.feature_record.presentation.add_record
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,26 +15,42 @@ import androidx.navigation.NavController
 
 @Composable
 fun AddRecordScreen(
+    modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: AddRecordViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    viewModel: AddRecordViewModel = hiltViewModel()
 ) {
-    val state = viewModel.playerListState
+    val playerListState = viewModel.playerListState
+    val titleState = viewModel.titleState
 
     Scaffold { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
+            TextField(
+                value = titleState.value.title,
+                onValueChange = { title ->
+                    viewModel.onEvent(AddRecordEvent.ChangedRecordTitle(title))
+                },
+                label = {
+                    Text("제목을 입력하세요.")
+                }
+            )
             LazyColumn {
-                Log.d("TAG", "AddRecordScreen : goes into ")
-                items(state.size) { index ->
-                    TextField(value = state.toList()[index].name, onValueChange = { name ->
-                        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(index, name))
-                    })
+                items(playerListState.size) { index ->
+                    TextField(
+                        value = playerListState.toList()[index].name,
+                        onValueChange = { name ->
+                            viewModel.onEvent(AddRecordEvent.ChangedPlayerName(index, name))
+                        },
+                        label = {
+                            Text("플레이어${index.plus(1)} 이름을 입력하세요.")
+                        }
+                    )
                 }
             }
+
             Button(onClick = {
                 viewModel.onEvent(AddRecordEvent.SaveRecord)
                 navController.popBackStack()

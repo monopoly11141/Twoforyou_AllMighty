@@ -9,6 +9,7 @@ import java.time.LocalDate
 data class Record(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    val title: String = "",
     val players : List<Player> = emptyList(),
     val round: List<Round> = emptyList(),
     val currentRound: Int = 1,

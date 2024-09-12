@@ -9,7 +9,7 @@ import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 
 @Database(
     entities = [Record::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(

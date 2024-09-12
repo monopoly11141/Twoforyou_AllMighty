@@ -38,17 +38,14 @@ fun RecordItem(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            for(player in record.players) {
-                Text("${player.name} : ${player.score}")
-            }
+            Text(record.title)
         }
 
         Spacer(modifier = Modifier.weight(1f))
 
         IconButton(
-            onClick = onDeleteItemClicked,
-
-            ) {
+            onClick = onDeleteItemClicked
+        ) {
             Icon(
                 imageVector = Icons.Default.Clear,
                 contentDescription = "Delete",
