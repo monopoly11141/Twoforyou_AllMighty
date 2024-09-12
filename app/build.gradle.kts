@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -17,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.twoforyou_allmighty.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -45,6 +47,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
         }
     }
 }
@@ -78,6 +82,7 @@ dependencies {
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockk)
+    kaptAndroidTest(libs.hilt.android.compiler)
 
     //navigation
     implementation(libs.navgiation.compose)
@@ -96,7 +101,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation( libs.androidx.room.runtime)
     annotationProcessor (libs.androidx.room.room.compiler)
-    kapt (libs.androidx.room.room.compiler)
     //gson
     implementation(libs.gson)
 }

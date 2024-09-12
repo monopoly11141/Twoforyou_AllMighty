@@ -14,13 +14,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.twoforyou_allmighty.R
 import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 import com.example.twoforyou_allmighty.feature_record.presentation.add_record.AddRecordScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.record.component.RecordItem
 import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
+import com.example.twoforyou_allmighty.test.TestTag
 
 @Composable
 fun RecordScreen(
@@ -28,7 +32,6 @@ fun RecordScreen(
     viewModel: RecordViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    val scope = rememberCoroutineScope()
 
     Scaffold(
         floatingActionButton = {
@@ -37,7 +40,12 @@ fun RecordScreen(
                    navController.navigate(Screen.AddRecordScreen.route)
                 },
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(R.string.add_note),
+                    modifier = Modifier
+                        .testTag(TestTag.ADD_NOTES_ICON_BUTTON)
+                )
             }
         },
     ) { paddingValues ->

@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.theme
+package com.example.twoforyou_allmighty.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
