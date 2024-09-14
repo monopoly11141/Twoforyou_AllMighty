@@ -1,6 +1,7 @@
 package com.example.twoforyou_allmighty.feature_record.presentation.record
 
 import android.content.Context
+import androidx.activity.compose.setContent
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
@@ -40,7 +41,7 @@ class RecordScreenTest {
     @Before
     fun setUp() {
         hiltRule.inject()
-        composeRule.setContent {
+        composeRule.activity.setContent {
             navController = rememberNavController()
 
             Twoforyou_AllMightyTheme {
@@ -66,11 +67,11 @@ class RecordScreenTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
 
         composeRule
-            .onNodeWithTag(TestTag.ADD_NOTES_ICON_BUTTON)
+            .onNodeWithTag(TestTag.ADD_NOTES_ICON_BUTTON, useUnmergedTree = true)
             .assertExists()
         composeRule.onNodeWithContentDescription(context.getString(R.string.add_note)).performClick()
         composeRule
-            .onNodeWithTag(TestTag.ADD_NOTES_ICON_BUTTON)
+            .onNodeWithTag(TestTag.ADD_NOTES_ICON_BUTTON, useUnmergedTree = true)
             .assertDoesNotExist()
 
         val route = navController.currentBackStackEntry?.destination?.route

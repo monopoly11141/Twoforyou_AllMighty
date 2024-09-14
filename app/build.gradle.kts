@@ -78,7 +78,7 @@ dependencies {
 
     //instrumentation test
     androidTestImplementation(libs.hilt.android.testing)
-    androidTestAnnotationProcessor(libs.hilt.compiler)
+    kaptAndroidTest(libs.hilt.compiler)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.mockwebserver)
     androidTestImplementation(libs.mockk)
@@ -100,7 +100,7 @@ dependencies {
     //room
     implementation(libs.androidx.room.ktx)
     implementation( libs.androidx.room.runtime)
-    annotationProcessor (libs.androidx.room.room.compiler)
+    kapt(libs.androidx.room.room.compiler)
     //gson
     implementation(libs.gson)
 }
