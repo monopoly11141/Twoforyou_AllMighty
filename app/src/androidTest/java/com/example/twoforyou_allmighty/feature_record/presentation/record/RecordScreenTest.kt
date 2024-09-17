@@ -77,6 +77,8 @@ class RecordScreenTest {
         val route = navController.currentBackStackEntry?.destination?.route
         Truth.assertThat(route).isEqualTo(Screen.AddRecordScreen.route)
 
+
+
     }
 
 }

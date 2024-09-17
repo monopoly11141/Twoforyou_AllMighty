@@ -11,11 +11,13 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.R
+import com.example.twoforyou_allmighty.test.TestTag.RECORD_SAVE_BUTTON
 
 @Composable
 fun AddRecordScreen(
@@ -68,10 +70,14 @@ fun AddRecordScreen(
                 }
             }
 
-            Button(onClick = {
-                viewModel.onEvent(AddRecordEvent.SaveRecord)
-                navController.popBackStack()
-            }) {
+            Button(
+                onClick = {
+                    viewModel.onEvent(AddRecordEvent.SaveRecord)
+                    navController.popBackStack()
+                },
+                modifier = Modifier
+                    .testTag(RECORD_SAVE_BUTTON)
+            ) {
                 Text(text = "저장")
             }
         }

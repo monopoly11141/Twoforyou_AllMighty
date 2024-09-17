@@ -12,16 +12,12 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.R
-import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
-import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
-import com.example.twoforyou_allmighty.feature_record.presentation.add_record.AddRecordScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.record.component.RecordItem
 import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
 import com.example.twoforyou_allmighty.test.TestTag
@@ -37,7 +33,7 @@ fun RecordScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                   navController.navigate(Screen.AddRecordScreen.route)
+                    navController.navigate(Screen.AddRecordScreen.route)
                 },
             ) {
                 Icon(

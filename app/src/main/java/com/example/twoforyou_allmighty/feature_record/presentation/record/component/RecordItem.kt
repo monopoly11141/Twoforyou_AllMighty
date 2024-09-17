@@ -16,8 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.test.TestTag
 
 @Composable
 fun RecordItem(
@@ -38,7 +40,11 @@ fun RecordItem(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(record.title)
+            Text(
+                text = record.title,
+                modifier = Modifier
+                    .testTag(TestTag.RECORD_LIST)
+            )
         }
 
         Spacer(modifier = Modifier.weight(1f))
