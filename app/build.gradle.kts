@@ -75,6 +75,7 @@ dependencies {
     testImplementation(libs.truth)
     testImplementation(libs.mockwebserver)
     testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     //instrumentation test
     androidTestImplementation(libs.hilt.android.testing)
