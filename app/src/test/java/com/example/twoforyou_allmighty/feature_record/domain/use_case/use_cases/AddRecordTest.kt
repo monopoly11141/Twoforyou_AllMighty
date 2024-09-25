@@ -7,6 +7,7 @@ import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
@@ -35,7 +36,7 @@ class AddRecordTest {
 
     @Test
     fun `inserted correctly, 100 notes`() {
-        runBlocking {
+        runTest {
             val recordList = fakeRecordRepository.getAllRecord().first()
             assertThat(recordList.size).isEqualTo(100)
         }

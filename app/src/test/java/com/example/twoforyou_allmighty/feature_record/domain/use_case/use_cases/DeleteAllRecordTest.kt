@@ -5,6 +5,7 @@ import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
@@ -33,7 +34,7 @@ class DeleteAllRecordTest() {
 
     @Test
     fun `delete all records, 0 records`() {
-        runBlocking {
+        runTest {
             val recordList = fakeRecordRepository.getAllRecord().first()
             assertThat(recordList.size).isEqualTo(100)
             fakeRecordRepository.deleteAllRecord()

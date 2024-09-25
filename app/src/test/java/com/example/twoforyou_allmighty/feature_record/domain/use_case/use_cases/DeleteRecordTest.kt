@@ -5,13 +5,14 @@ import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
 class DeleteRecordTest() {
     private lateinit var addRecord: AddRecord
     private lateinit var fakeRecordRepository: FakeRecordRepository
+    private lateinit var recordToInsert: MutableList<Record>
 
     @Before
     fun setUp() {
@@ -20,7 +21,7 @@ class DeleteRecordTest() {
             recordRepository = fakeRecordRepository
         )
 
-        val recordToInsert = mutableListOf<Record>()
+        recordToInsert = mutableListOf<Record>()
         for (i in 1..100) {
             recordToInsert.add(Record(id = i))
         }
@@ -34,11 +35,13 @@ class DeleteRecordTest() {
 
     @Test
     fun `delete 1 record, 99 records`() {
-        runBlocking {
+
+        runTest {
             val recordList = fakeRecordRepository.getAllRecord().first()
             Truth.assertThat(recordList.size).isEqualTo(100)
-            fakeRecordRepository.deleteRecord(Record(1))
+            fakeRecordRepository.deleteRecord(recordToInsert[0])
             Truth.assertThat(recordList.size).isEqualTo(99)
         }
+
     }
 }

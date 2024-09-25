@@ -1,4 +1,4 @@
-package com.example.twoforyou_allmighty.feature_record.presentation.record
+package com.example.twoforyou_allmighty
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
