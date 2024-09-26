@@ -15,6 +15,8 @@ import com.example.twoforyou_allmighty.feature_record.presentation.record.Record
 import com.google.common.truth.Truth
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
@@ -24,22 +26,52 @@ class AddRecordViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private val recordUseCases = mockk<RecordUseCases>()
+    private lateinit var fakeRecordRepository: FakeRecordRepository
+
+    private val recordUseCases = mockk<RecordUseCases>(relaxed = true)
 
     private lateinit var record: Record
+    private lateinit var addRecordViewModel: AddRecordViewModel
 
     @Before
     fun setUp() {
+        addRecordViewModel = AddRecordViewModel(recordUseCases)
+        fakeRecordRepository = FakeRecordRepository()
+
+        every { recordUseCases.addRecord } returns AddRecord(fakeRecordRepository)
+        every { recordUseCases.getAllRecord } returns GetAllRecord(fakeRecordRepository)
 
     }
 
     @Test
     fun `changed player name to Paul_name becomes Paul`() {
-        val viewModel = AddRecordViewModel(recordUseCases)
-        
-        Truth.assertThat(viewModel.playerListState.toList()[0].name).isEqualTo("")
+        Truth.assertThat(addRecordViewModel.playerListState.toList()[0].name).isEqualTo("")
 
-        viewModel.onEvent(AddRecordEvent.ChangedPlayerName(0, "Paul"))
-        Truth.assertThat(viewModel.playerListState.toList()[0].name).isEqualTo("Paul")
+        addRecordViewModel.onEvent(AddRecordEvent.ChangedPlayerName(0, "Paul"))
+        Truth.assertThat(addRecordViewModel.playerListState.toList()[0].name).isEqualTo("Paul")
+    }
+
+    @Test
+    fun `changed player score to 100_score becomes 100`() {
+        Truth.assertThat(addRecordViewModel.playerListState.toList()[0].score).isEqualTo(0)
+
+        addRecordViewModel.onEvent(AddRecordEvent.ChangedPlayerScore(0, 5))
+        Truth.assertThat(addRecordViewModel.playerListState.toList()[0].score).isEqualTo(5)
+    }
+
+    @Test
+    fun `changed record title to newTitle_title becomes newTitle`() {
+        Truth.assertThat(addRecordViewModel.titleState.value.title).isEqualTo("")
+
+        addRecordViewModel.onEvent(AddRecordEvent.ChangedRecordTitle("newTitle"))
+        Truth.assertThat(addRecordViewModel.titleState.value.title).isEqualTo("newTitle")
+    }
+
+    @Test
+    fun `save record, number of record increased by 1`() {
+        addRecordViewModel.onEvent(AddRecordEvent.SaveRecord)
+        runTest{
+            Truth.assertThat(recordUseCases.getAllRecord().first().size).isEqualTo(1)
+        }
     }
 }
