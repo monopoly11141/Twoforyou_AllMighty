@@ -55,7 +55,11 @@ fun RecordScreen(
                     .fillMaxSize()
             ) {
                 items(state.entireRecord) { record ->
-                    RecordItem(record, {}, { viewModel.onEvent(RecordEvent.DeleteRecord(record)) })
+                    RecordItem(
+                        record = record,
+                        onClickItem = { navController.navigate("${Screen.RecordDetailScreen.route}/${record.id}") },
+                        onDeleteItemClicked = { viewModel.onEvent(RecordEvent.DeleteRecord(record)) }
+                    )
                     HorizontalDivider()
                 }
             }
