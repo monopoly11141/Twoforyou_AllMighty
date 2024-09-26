@@ -7,7 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,6 +16,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.R
+import com.example.twoforyou_allmighty.feature_record.presentation.add_record.component.PlayerNameTextField
+import com.example.twoforyou_allmighty.feature_record.presentation.add_record.component.RecordTitleTextField
 import com.example.twoforyou_allmighty.test.TestTag.RECORD_SAVE_BUTTON
 
 @Composable
@@ -35,37 +36,27 @@ fun AddRecordScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            TextField(
-                value = titleState.value.title,
-                onValueChange = { title ->
-                    viewModel.onEvent(AddRecordEvent.ChangedRecordTitle(title))
-                },
+
+            RecordTitleTextField(
                 modifier = Modifier
                     .semantics {
                         this.contentDescription = context.getString(R.string.record_title)
                     },
-                label = {
-                    Text(
-                        text = "제목을 입력하세요."
-                    )
-                }
+                titleText = titleState.value.title,
+                onValueChange = { title -> viewModel.onEvent(AddRecordEvent.ChangedRecordTitle(title)) },
+                labelText = "제목을 입력하세요."
             )
+
             LazyColumn {
                 items(playerListState.size) { index ->
-                    TextField(
-                        value = playerListState.toList()[index].name,
-                        onValueChange = { name ->
-                            viewModel.onEvent(AddRecordEvent.ChangedPlayerName(index, name))
-                        },
+                    PlayerNameTextField(
                         modifier = Modifier
                             .semantics {
                                 this.contentDescription = context.getString(R.string.player_name, index.plus(1))
                             },
-                        label = {
-                            Text(
-                                text = "플레이어${index.plus(1)} 이름을 입력하세요."
-                            )
-                        }
+                        nameText = playerListState.toList()[index].name,
+                        onValueChange = { name -> viewModel.onEvent(AddRecordEvent.ChangedPlayerName(index, name)) },
+                        labelText = "플레이어${index.plus(1)} 이름을 입력하세요."
                     )
                 }
             }
@@ -80,6 +71,7 @@ fun AddRecordScreen(
             ) {
                 Text(text = "저장")
             }
+
         }
     }
 }

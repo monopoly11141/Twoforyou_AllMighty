@@ -30,7 +30,6 @@ class AddRecordViewModelTest {
 
     private val recordUseCases = mockk<RecordUseCases>(relaxed = true)
 
-    private lateinit var record: Record
     private lateinit var addRecordViewModel: AddRecordViewModel
 
     @Before
