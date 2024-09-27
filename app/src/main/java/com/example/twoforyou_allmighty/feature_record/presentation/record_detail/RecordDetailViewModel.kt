@@ -4,12 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.RecordUseCases
 import com.example.twoforyou_allmighty.feature_record.presentation.record.RecordEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.max
 
 @HiltViewModel
 class RecordDetailViewModel @Inject constructor(
@@ -26,7 +30,18 @@ class RecordDetailViewModel @Inject constructor(
 
             is RecordDetailEvent.AddRound -> {
                 viewModelScope.launch(Dispatchers.IO) {
-//                    recordUseCases.add(recordDetailEvent.round, _state.value.record)
+                    _state.value = _state.value.copy(
+                        record = Record(
+                            id = _state.value.record.id,
+                            title = _state.value.record.title,
+                            players = state.value.record.players,
+                            round = state.value.record.round + recordDetailEvent.round,
+                            currentRound = _state.value.record.currentRound,
+                            maxRound = _state.value.record.maxRound,
+                            timeStamp = _state.value.record.timeStamp
+                        )
+                    )
+                    recordUseCases.updateRecord(_state.value.record)
                 }
             }
         }

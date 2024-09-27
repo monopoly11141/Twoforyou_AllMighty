@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 
 @Composable
@@ -29,7 +30,10 @@ fun RecordDetailScreen(
         Text(text = viewModel.state.value.record.title)
         Text(text = viewModel.state.value.record.timeStamp.toString())
 
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f)
+        ) {
             items(viewModel.state.value.record.round) { oneRound ->
                 for (players in oneRound.players) {
                     Row {
@@ -40,7 +44,11 @@ fun RecordDetailScreen(
         }
 
         Button(
-            onClick = { viewModel.onEvent(RecordDetailEvent.AddRound(Round())) },
+            onClick = { viewModel.onEvent(RecordDetailEvent.AddRound(
+                Round(
+                    players = viewModel.state.value.record.players
+                )
+            )) },
             modifier = Modifier
                 .fillMaxWidth()
         ) {
