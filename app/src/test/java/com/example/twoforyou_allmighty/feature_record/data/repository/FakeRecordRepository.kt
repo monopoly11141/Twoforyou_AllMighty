@@ -1,6 +1,7 @@
 package com.example.twoforyou_allmighty.feature_record.data.repository
 
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.domain.repository.RecordRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,5 +30,13 @@ class FakeRecordRepository() : RecordRepository {
         recordList.clear()
     }
 
-
+    override suspend fun updateRecord(record: Record) {
+        recordList.replaceAll {
+            if(it.id == record.id) {
+                record
+            }else {
+                it
+            }
+        }
+    }
 }

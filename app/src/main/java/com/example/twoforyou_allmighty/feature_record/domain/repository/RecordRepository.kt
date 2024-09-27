@@ -1,6 +1,7 @@
 package com.example.twoforyou_allmighty.feature_record.domain.repository
 
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import kotlinx.coroutines.flow.Flow
 
 interface RecordRepository {
@@ -14,4 +15,5 @@ interface RecordRepository {
 
     suspend fun deleteAllRecord()
 
+    suspend fun updateRecord(record: Record)
 }

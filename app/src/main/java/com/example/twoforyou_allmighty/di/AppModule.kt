@@ -12,6 +12,7 @@ import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.DeleteRecord
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.GetAllRecord
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.GetRecordById
+import com.example.twoforyou_allmighty.feature_record.domain.use_case.use_cases.UpdateRecord
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +47,8 @@ class AppModule {
             deleteAllRecord = DeleteAllRecord(recordRepository),
             deleteRecord = DeleteRecord(recordRepository),
             getAllRecord = GetAllRecord(recordRepository),
-            getRecordById = GetRecordById(recordRepository)
+            getRecordById = GetRecordById(recordRepository),
+            updateRecord = UpdateRecord(recordRepository)
         )
 
 }

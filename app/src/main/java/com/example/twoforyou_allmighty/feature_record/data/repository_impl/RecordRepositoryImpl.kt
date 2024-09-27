@@ -2,6 +2,7 @@ package com.example.twoforyou_allmighty.feature_record.data.repository_impl
 
 import com.example.twoforyou_allmighty.feature_record.data.db.RecordDao
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.domain.repository.RecordRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -27,6 +28,10 @@ class RecordRepositoryImpl(
 
     override suspend fun deleteAllRecord() {
         recordDao.deleteAllRecord()
+    }
+
+    override suspend fun updateRecord(record: Record) {
+        recordDao.updateRecord(record)
     }
 
 }

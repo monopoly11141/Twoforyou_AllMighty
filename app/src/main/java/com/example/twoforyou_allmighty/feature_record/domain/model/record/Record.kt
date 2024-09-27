@@ -11,7 +11,7 @@ data class Record(
     val id: Int = 0,
     val title: String = "",
     val players : List<Player> = emptyList(),
-    val round: List<Round> = emptyList(),
+    val round: MutableList<Round> = mutableListOf(),
     val currentRound: Int = 1,
     val maxRound : Int = 10,
     val timeStamp : Long = java.util.Date().time
