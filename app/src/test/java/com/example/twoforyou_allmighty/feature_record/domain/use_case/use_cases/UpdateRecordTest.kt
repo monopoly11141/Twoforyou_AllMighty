@@ -26,7 +26,7 @@ class UpdateRecordTest {
         )
 
         val recordToInsert = mutableListOf<Record>()
-        for(i in 1..100) {
+        for (i in 1..100) {
             recordToInsert.add(Record(id = i))
         }
 
@@ -38,15 +38,20 @@ class UpdateRecordTest {
     }
 
     @Test
-    fun `inserted round to 0th record, 1 record`() {
+    fun `changed record title to new record, update`() {
         runTest {
             val recordList = fakeRecordRepository.getAllRecord().first()
 
-            assertThat(recordList[0].round.size).isEqualTo(0)
+            val updatedTitle = "new record"
 
-            recordList[0].round.add(Round())
-            fakeRecordRepository.updateRecord(recordList[0])
-            assertThat(recordList[0].round.size).isEqualTo(1)
+            assertThat(recordList[0].round.size).isEqualTo(0)
+            val updatedRecord = recordList[0].copy(
+                title = updatedTitle
+            )
+
+            fakeRecordRepository.updateRecord(updatedRecord)
+
+            assertThat(recordList[0].title).isEqualTo(updatedTitle)
         }
     }
 }
