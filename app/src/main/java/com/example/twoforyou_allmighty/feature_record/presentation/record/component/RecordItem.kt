@@ -21,6 +21,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.presentation.util.TimeUtil
 import com.example.twoforyou_allmighty.test.TestTag
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -51,9 +52,8 @@ fun RecordItem(
                 modifier = Modifier
                     .weight(1f)
             ) {
-                val format = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.ENGLISH)
                 Text(
-                    text = format.format(Date(record.timeStamp)),
+                    text = TimeUtil.timeStampToTimeString(record.timeStamp),
                     fontSize = 10.sp
                 )
                 Row(

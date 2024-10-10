@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
+import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.RecordUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -56,12 +57,23 @@ class AddRecordViewModel @Inject constructor(
             }
 
             is AddRecordEvent.SaveRecord -> {
+                val round = mutableListOf<Round>()
+
+                for (i in 1..10) {
+                    round.add(
+                        Round(
+                            roundNumber = i
+                        )
+                    )
+                }
+
                 viewModelScope.launch {
                     recordUseCases.addRecord(
                         Record(
                             id = 0,
                             title = _titleState.value.title,
                             players = _playerListState.toList().map { Player(it.name, it.score) },
+                            round = round
                         )
                     )
                 }
