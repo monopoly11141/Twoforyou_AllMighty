@@ -4,7 +4,6 @@ import com.example.twoforyou_allmighty.feature_record.domain.model.helper.Trump_
 import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 
 data class Round(
-    val roundNumber : Int = 0,
     val mightyPlayer : Player = Player(),
     val friendPlayer : Player = Player(),
     val pledgeTrickNumber : Int = 0,

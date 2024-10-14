@@ -61,9 +61,7 @@ class AddRecordViewModel @Inject constructor(
 
                 for (i in 1..10) {
                     round.add(
-                        Round(
-                            roundNumber = i
-                        )
+                        Round()
                     )
                 }
 

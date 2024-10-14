@@ -8,5 +8,6 @@ import com.example.twoforyou_allmighty.feature_record.presentation.record.Record
 sealed class RecordDetailEvent {
     data class InitRecord(val id: Int) : RecordDetailEvent()
     data class AddRound(val round: Round) : RecordDetailEvent()
+    data class DeleteRound(val round: Round) : RecordDetailEvent()
     data class ChangeMightyPlayer(val roundNumber: Int, val mightyPlayer: Player) : RecordDetailEvent()
 }

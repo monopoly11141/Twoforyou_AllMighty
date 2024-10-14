@@ -31,7 +31,7 @@ class RecordDetailViewModel @Inject constructor(
                             id = _state.value.record.id,
                             title = _state.value.record.title,
                             players = _state.value.record.players,
-                            round = _state.value.record.round + recordDetailEvent.round,
+                            round = _state.value.record.round.plus(recordDetailEvent.round),
                             currentRound = _state.value.record.currentRound,
                             maxRound = _state.value.record.maxRound,
                             timeStamp = _state.value.record.timeStamp
@@ -51,13 +51,30 @@ class RecordDetailViewModel @Inject constructor(
                             id = _state.value.record.id,
                             title = _state.value.record.title,
                             players = _state.value.record.players,
-                            round = _state.value.record.round.map {
-                                if (it.roundNumber == recordDetailEvent.roundNumber) {
+                            round = _state.value.record.round.mapIndexed { index, it ->
+                                if (index + 1 == recordDetailEvent.roundNumber) {
                                     round
                                 } else {
                                     it
                                 }
                             },
+                            currentRound = _state.value.record.currentRound,
+                            maxRound = _state.value.record.maxRound,
+                            timeStamp = _state.value.record.timeStamp
+                        )
+                    )
+                    recordUseCases.updateRecord(_state.value.record)
+                }
+            }
+
+            is RecordDetailEvent.DeleteRound -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _state.value = _state.value.copy(
+                        record = Record(
+                            id = _state.value.record.id,
+                            title = _state.value.record.title,
+                            players = _state.value.record.players,
+                            round = _state.value.record.round.minus(recordDetailEvent.round),
                             currentRound = _state.value.record.currentRound,
                             maxRound = _state.value.record.maxRound,
                             timeStamp = _state.value.record.timeStamp

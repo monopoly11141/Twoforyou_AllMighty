@@ -9,7 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,10 +54,11 @@ fun RecordDetailScreen(
                 modifier = Modifier
                     .weight(1f)
             ) {
-                items(record.round) { oneRound ->
+
+                itemsIndexed(record.round) { i, oneRound ->
                     Row {
                         Text(
-                            text = "라운드 ${oneRound.roundNumber}",
+                            text = "라운드 ${i+1}",
                         )
                         for (players in record.players) {
                             Text(text = players.name)
@@ -61,9 +67,15 @@ fun RecordDetailScreen(
                                     .size(4.dp)
                             )
                         }
+
+                        IconButton(onClick = { viewModel.onEvent(RecordDetailEvent.DeleteRound(oneRound))}) {
+                            Icon(
+                                imageVector = Icons.Filled.Clear,
+                                contentDescription = "라운드 없애기"
+                            )
+                        }
                     }
                 }
-
 
             }
 
@@ -71,9 +83,7 @@ fun RecordDetailScreen(
                 onClick = {
                     viewModel.onEvent(
                         RecordDetailEvent.AddRound(
-                            Round(
-                                roundNumber = record.round.size + 1
-                            )
+                            Round()
                         )
                     )
                 },
