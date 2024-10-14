@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
@@ -20,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -58,17 +58,30 @@ fun RecordDetailScreen(
                 itemsIndexed(record.round) { i, oneRound ->
                     Row {
                         Text(
-                            text = "라운드 ${i+1}",
+                            text = "라운드 ${i + 1}",
                         )
-                        for (players in record.players) {
-                            Text(text = players.name)
+                        for (player in record.players) {
+                            Text(
+                                text = player.name,
+                                color = when (player) {
+                                    oneRound.mightyPlayer -> {
+                                        Color.Red
+                                    }
+
+                                    oneRound.friendPlayer -> {
+                                        Color.Yellow
+                                    }
+
+                                    else -> Color.Black
+                                }
+                            )
                             Spacer(
                                 modifier = Modifier
                                     .size(4.dp)
                             )
                         }
 
-                        IconButton(onClick = { viewModel.onEvent(RecordDetailEvent.DeleteRound(oneRound))}) {
+                        IconButton(onClick = { viewModel.onEvent(RecordDetailEvent.DeleteRound(oneRound)) }) {
                             Icon(
                                 imageVector = Icons.Filled.Clear,
                                 contentDescription = "라운드 없애기"
