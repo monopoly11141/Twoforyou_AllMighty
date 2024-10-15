@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.twoforyou_allmighty.feature_record.presentation.add_record.AddRecordScreen
+import com.example.twoforyou_allmighty.feature_record.presentation.add_round.AddRoundScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.record.RecordScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.record_detail.RecordDetailScreen
 import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
@@ -34,9 +35,23 @@ fun Navigation(
                     type = NavType.IntType
                 }
             )
-        ) {entry ->
+        ) { entry ->
             val recordKey = entry.arguments?.getInt("recordKey")!!
             RecordDetailScreen(
+                navController = navController,
+                recordKey = recordKey,
+            )
+        }
+
+        composable(route = "${Screen.AddRoundScreen.route}/{recordKey}",
+            arguments = listOf(
+                navArgument("recordKey") {
+                    type = NavType.IntType
+                }
+            )
+        ) { entry ->
+            val recordKey = entry.arguments?.getInt("recordKey")!!
+            AddRoundScreen(
                 navController = navController,
                 recordKey = recordKey,
             )

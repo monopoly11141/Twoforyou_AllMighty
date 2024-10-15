@@ -8,4 +8,6 @@ sealed class Screen(val route: String) {
 
     data object RecordDetailScreen : Screen(route = "record_detail_screen")
 
+    data object AddRoundScreen : Screen(route = "add_round_screen")
+
 }

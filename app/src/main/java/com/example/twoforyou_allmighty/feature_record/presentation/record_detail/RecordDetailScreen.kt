@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
+import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
 import com.example.twoforyou_allmighty.feature_record.presentation.util.TimeUtil
 
 @Composable
@@ -94,11 +95,7 @@ fun RecordDetailScreen(
 
             Button(
                 onClick = {
-                    viewModel.onEvent(
-                        RecordDetailEvent.AddRound(
-                            Round()
-                        )
-                    )
+                   navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
