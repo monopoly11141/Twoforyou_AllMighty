@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
-import com.example.twoforyou_allmighty.feature_record.presentation.add_round.AddRoundEvent
 import com.example.twoforyou_allmighty.feature_record.presentation.add_round.AddRoundViewModel
 
 @Composable
@@ -19,7 +18,7 @@ fun PlayerRadioGroup(
     text: String,
     playerList: List<Player>,
     selectedPlayer: Player,
-    addRoundEvent: AddRoundEvent,
+    onClick: (Player) -> Unit,
     viewModel: AddRoundViewModel = hiltViewModel()
 ) {
     Text(
@@ -35,8 +34,7 @@ fun PlayerRadioGroup(
                     selectedPlayer,
                     player
                 ) {
-                    addRoundEvent
-                    viewModel.onEvent(AddRoundEvent.ChangedMightyPlayer(player))
+                    onClick(player)
                 }
             }
         }
@@ -48,11 +46,11 @@ fun PlayerRadioGroup(
 private fun PlayerRadioButton(
     selectedPlayer: Player,
     player: Player,
-    onClick: () -> Unit
+    onClick: (Player) -> Unit
 ) {
     RadioButton(
         selected = selectedPlayer == player,
-        onClick = { onClick() }
+        onClick = { onClick(selectedPlayer) }
     )
     Text(
         text = player.name,

@@ -4,6 +4,6 @@ enum class Trump_Suit {
     SPADE,
     DIAMOND,
     HEART,
-    ClUB,
+    CLUB,
     NO_TRUMP_SUIT
 }

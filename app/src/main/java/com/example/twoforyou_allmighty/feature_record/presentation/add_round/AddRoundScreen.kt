@@ -4,19 +4,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.State
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
+import com.example.twoforyou_allmighty.feature_record.domain.model.helper.Trump_Suit
+import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.NumberCounterGroup
 import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.PlayerRadioGroup
 
 @Composable
@@ -45,17 +46,34 @@ fun AddRoundScreen(
                 text = "마이티 플레이어: ",
                 playerList = recordState.value.record.players,
                 addRoundUiState.value.mightyPlayer,
-                addRoundEvent = AddRoundEvent.ChangedMightyPlayer(addRoundUiState.value.mightyPlayer)
+                onClick = { player ->
+                    viewModel.onEvent(AddRoundEvent.ChangedMightyPlayer(player))
+                }
             )
 
+            PlayerRadioGroup(
+                text = "친구 플레이어: ",
+                playerList = recordState.value.record.players,
+                addRoundUiState.value.friendPlayer,
+                onClick = { player ->
+                    viewModel.onEvent(AddRoundEvent.ChangedFriendPlayer(player))
+                }
+            )
 
+            NumberCounterGroup()
 
-//            PlayerRadioGroup(
-//                text = "친구 플레이어: ",
-//                playerList = recordState.value.record.players,
-//                addRoundUiState.value.friendPlayer
-//            )
+            NumberCounterGroup()
 
+            var selectedTrumpSuitOption by remember { mutableStateOf(Trump_Suit.SPADE.name) }
+            Row() {
+                Trump_Suit.entries.forEach { trumpSuit ->
+                    RadioButton(
+                        selected = selectedTrumpSuitOption == trumpSuit.name,
+                        onClick = { selectedTrumpSuitOption = trumpSuit.name }
+                    )
+                    Text(trumpSuit.name)
+                }
+            }
 
         }
     }
