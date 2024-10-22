@@ -1,24 +1,17 @@
 package com.example.twoforyou_allmighty.feature_record.presentation.add_round
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.twoforyou_allmighty.feature_record.domain.model.helper.Trump_Suit
-import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.NumberCounterGroup
 import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.PlayerRadioGroup
+import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.TrickCounter
+import com.example.twoforyou_allmighty.feature_record.presentation.add_round.component.TrumpSuitRadioGroup
 
 @Composable
 fun AddRoundScreen(
@@ -45,7 +38,7 @@ fun AddRoundScreen(
             PlayerRadioGroup(
                 text = "마이티 플레이어: ",
                 playerList = recordState.value.record.players,
-                addRoundUiState.value.mightyPlayer,
+                selectedPlayer = addRoundUiState.value.mightyPlayer,
                 onClick = { player ->
                     viewModel.onEvent(AddRoundEvent.ChangedMightyPlayer(player))
                 }
@@ -54,26 +47,45 @@ fun AddRoundScreen(
             PlayerRadioGroup(
                 text = "친구 플레이어: ",
                 playerList = recordState.value.record.players,
-                addRoundUiState.value.friendPlayer,
+                selectedPlayer = addRoundUiState.value.friendPlayer,
                 onClick = { player ->
                     viewModel.onEvent(AddRoundEvent.ChangedFriendPlayer(player))
                 }
             )
 
-            NumberCounterGroup()
-
-            NumberCounterGroup()
-
-            var selectedTrumpSuitOption by remember { mutableStateOf(Trump_Suit.SPADE.name) }
-            Row() {
-                Trump_Suit.entries.forEach { trumpSuit ->
-                    RadioButton(
-                        selected = selectedTrumpSuitOption == trumpSuit.name,
-                        onClick = { selectedTrumpSuitOption = trumpSuit.name }
-                    )
-                    Text(trumpSuit.name)
+            TrickCounter(
+                text = "공약 트릭 수 : ",
+                trickNumber = addRoundUiState.value.pledgeTrickNumber,
+                onPlusClick = {
+                    viewModel.onEvent(AddRoundEvent.ChangedPledgeTrickNumber(addRoundUiState.value.pledgeTrickNumber + 1))
+                },
+                onMinusClick = {
+                    if (addRoundUiState.value.pledgeTrickNumber > 0) {
+                        viewModel.onEvent(AddRoundEvent.ChangedPledgeTrickNumber(addRoundUiState.value.pledgeTrickNumber - 1))
+                    }
                 }
-            }
+            )
+
+            TrickCounter(
+                text = "실제 트릭 수 : ",
+                trickNumber = addRoundUiState.value.actualTrickNumber,
+                onPlusClick = {
+                    viewModel.onEvent(AddRoundEvent.ChangedActualTrickNumber(addRoundUiState.value.actualTrickNumber + 1))
+                },
+                onMinusClick = {
+                    if (addRoundUiState.value.actualTrickNumber > 0) {
+                        viewModel.onEvent(AddRoundEvent.ChangedActualTrickNumber(addRoundUiState.value.actualTrickNumber - 1))
+                    }
+                },
+            )
+
+            TrumpSuitRadioGroup(
+                text = "수트: ",
+                selectedTrumpSuit = addRoundUiState.value.trumpSuit,
+                onClick = { trumpSuit ->
+                    viewModel.onEvent(AddRoundEvent.ChangedTrumpSuit(trumpSuit))
+                }
+            )
 
         }
     }
