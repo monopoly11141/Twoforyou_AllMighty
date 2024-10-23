@@ -3,7 +3,9 @@ package com.example.twoforyou_allmighty.feature_record.presentation.add_round
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -86,6 +88,17 @@ fun AddRoundScreen(
                     viewModel.onEvent(AddRoundEvent.ChangedTrumpSuit(trumpSuit))
                 }
             )
+
+            Button(
+                onClick = {
+                    viewModel.onEvent(AddRoundEvent.SaveRound)
+                    navController.popBackStack()
+                }
+            ) {
+                Text(
+                    text = "저장하기"
+                )
+            }
 
         }
     }

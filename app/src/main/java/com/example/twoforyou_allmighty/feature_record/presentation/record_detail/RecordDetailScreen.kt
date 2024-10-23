@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.presentation.screen.Screen
 import com.example.twoforyou_allmighty.feature_record.presentation.util.TimeUtil
 
@@ -82,6 +82,17 @@ fun RecordDetailScreen(
                             )
                         }
 
+                        IconButton(
+                            onClick = {
+                                navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}")
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Edit,
+                                contentDescription = "라운드 바꾸기"
+                            )
+                        }
+
                         IconButton(onClick = { viewModel.onEvent(RecordDetailEvent.DeleteRound(oneRound)) }) {
                             Icon(
                                 imageVector = Icons.Filled.Clear,
@@ -95,7 +106,7 @@ fun RecordDetailScreen(
 
             Button(
                 onClick = {
-                   navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}")
+                    navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}")
                 },
                 modifier = Modifier
                     .fillMaxWidth()

@@ -24,23 +24,6 @@ class RecordDetailViewModel @Inject constructor(
                 initRecord(recordDetailEvent.id)
             }
 
-//            is RecordDetailEvent.AddRound -> {
-//                viewModelScope.launch(Dispatchers.IO) {
-//                    _state.value = _state.value.copy(
-//                        record = Record(
-//                            id = _state.value.record.id,
-//                            title = _state.value.record.title,
-//                            players = _state.value.record.players,
-//                            round = _state.value.record.round.plus(recordDetailEvent.round),
-//                            currentRound = _state.value.record.currentRound,
-//                            maxRound = _state.value.record.maxRound,
-//                            timeStamp = _state.value.record.timeStamp
-//                        )
-//                    )
-//                    recordUseCases.updateRecord(_state.value.record)
-//                }
-//            }
-
             is RecordDetailEvent.DeleteRound -> {
                 viewModelScope.launch(Dispatchers.IO) {
                     _state.value = _state.value.copy(
