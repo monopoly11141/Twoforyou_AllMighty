@@ -47,13 +47,33 @@ fun Navigation(
             arguments = listOf(
                 navArgument("recordKey") {
                     type = NavType.IntType
-                }
+                },
             )
         ) { entry ->
             val recordKey = entry.arguments?.getInt("recordKey")!!
             AddRoundScreen(
                 navController = navController,
                 recordKey = recordKey,
+                roundNumber = null
+            )
+        }
+
+        composable(route = "${Screen.AddRoundScreen.route}/{recordKey}/{roundNumber}",
+            arguments = listOf(
+                navArgument("recordKey") {
+                    type = NavType.IntType
+                },
+                navArgument("roundNumber") {
+                    type = NavType.IntType
+                }
+            )
+        ) { entry ->
+            val recordKey = entry.arguments?.getInt("recordKey")!!
+            val roundNumber = entry.arguments?.getInt("roundNumber")
+            AddRoundScreen(
+                navController = navController,
+                recordKey = recordKey,
+                roundNumber = roundNumber
             )
         }
 

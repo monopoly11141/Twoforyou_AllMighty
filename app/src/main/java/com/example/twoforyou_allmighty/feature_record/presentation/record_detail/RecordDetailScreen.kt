@@ -84,7 +84,7 @@ fun RecordDetailScreen(
 
                         IconButton(
                             onClick = {
-                                navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}")
+                                navController.navigate("${Screen.AddRoundScreen.route}/${recordKey}/${i}")
                             }
                         ) {
                             Icon(

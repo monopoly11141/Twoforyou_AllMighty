@@ -20,13 +20,14 @@ fun AddRoundScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     recordKey: Int,
+    roundNumber: Int?,
     viewModel: AddRoundViewModel = hiltViewModel()
 ) {
     val addRoundUiState = viewModel.addRoundUiState
     val recordState = viewModel.recordState
 
     LaunchedEffect(key1 = true) {
-        viewModel.onEvent(AddRoundEvent.InitRecord(recordKey))
+        viewModel.onEvent(AddRoundEvent.Init(recordKey, roundNumber))
     }
 
     Scaffold(
@@ -91,12 +92,22 @@ fun AddRoundScreen(
 
             Button(
                 onClick = {
-                    viewModel.onEvent(AddRoundEvent.SaveRound)
+                    if (roundNumber == null) {
+                        viewModel.onEvent(AddRoundEvent.SaveRound)
+                    } else {
+                        viewModel.onEvent(AddRoundEvent.ChangeRound(roundNumber))
+                    }
+
                     navController.popBackStack()
                 }
             ) {
+
                 Text(
-                    text = "저장하기"
+                    text = if (roundNumber == null) {
+                        "저장하기"
+                    } else {
+                        "수정하기"
+                    }
                 )
             }
 
