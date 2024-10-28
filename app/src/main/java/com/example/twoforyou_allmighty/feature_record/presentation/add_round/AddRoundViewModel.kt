@@ -2,7 +2,6 @@ package com.example.twoforyou_allmighty.feature_record.presentation.add_round
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.twoforyou_allmighty.feature_record.domain.model.helper.Trump_Suit
@@ -108,7 +107,8 @@ class AddRoundViewModel @Inject constructor(
                     trumpSuit = _addRoundUiState.value.trumpSuit,
                 )
 
-                _recordState.value.record.round.toMutableList()[addRoundEvent.roundNumber] = round
+                val roundMutableList = _recordState.value.record.round.toMutableList()
+                roundMutableList[addRoundEvent.roundNumber] = round
 
                 viewModelScope.launch(Dispatchers.IO) {
                     _recordState.value = _recordState.value.copy(
@@ -116,7 +116,7 @@ class AddRoundViewModel @Inject constructor(
                             id = _recordState.value.record.id,
                             title = _recordState.value.record.title,
                             players = _recordState.value.record.players,
-                            round = _recordState.value.record.round,
+                            round = roundMutableList,
                             currentRound = _recordState.value.record.currentRound,
                             maxRound = _recordState.value.record.maxRound,
                             timeStamp = _recordState.value.record.timeStamp
