@@ -9,6 +9,7 @@ import com.example.twoforyou_allmighty.feature_record.domain.model.player.Player
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Record
 import com.example.twoforyou_allmighty.feature_record.domain.model.record.Round
 import com.example.twoforyou_allmighty.feature_record.domain.use_case.RecordUseCases
+import com.example.twoforyou_allmighty.feature_record.presentation.util.PledgeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,12 +83,39 @@ class AddRoundViewModel @Inject constructor(
                     actualTrickNumber = _addRoundUiState.value.actualTrickNumber,
                     trumpSuit = _addRoundUiState.value.trumpSuit,
                 )
+
+                val playersMutableList = _recordState.value.record.players.toMutableList()
+
+                val pledgeTrickNumber = _addRoundUiState.value.pledgeTrickNumber
+                val actualTrickNumber = _addRoundUiState.value.actualTrickNumber
+                var score = 0
+
+                if (actualTrickNumber >= pledgeTrickNumber) {
+                    score = pledgeTrickNumber + actualTrickNumber - ((PledgeUtil.PLEDGE_DEFAULT_NUMBER - 1) * 2)
+
+                    playersMutableList.find { it == _addRoundUiState.value.mightyPlayer }?.score?.plus(score * 2)
+                    playersMutableList.find { it == _addRoundUiState.value.friendPlayer }?.score?.plus(score)
+                    playersMutableList.filter { it != _addRoundUiState.value.mightyPlayer && it != _addRoundUiState.value.friendPlayer }
+                        .map { player ->
+                            player.score.minus(score)
+                        }
+                } else {
+                    score = pledgeTrickNumber - actualTrickNumber
+
+                    playersMutableList.find { it == _addRoundUiState.value.mightyPlayer }?.score?.minus(score * 2)
+                    playersMutableList.find { it == _addRoundUiState.value.friendPlayer }?.score?.minus(score)
+                    playersMutableList.filter { it != _addRoundUiState.value.mightyPlayer && it != _addRoundUiState.value.friendPlayer }
+                        .map { player ->
+                            player.score.plus(score)
+                        }
+                }
+
                 viewModelScope.launch(Dispatchers.IO) {
                     _recordState.value = _recordState.value.copy(
                         record = Record(
                             id = _recordState.value.record.id,
                             title = _recordState.value.record.title,
-                            players = _recordState.value.record.players,
+                            players = playersMutableList,
                             round = _recordState.value.record.round.plus(round),
                             currentRound = _recordState.value.record.currentRound,
                             maxRound = _recordState.value.record.maxRound,
