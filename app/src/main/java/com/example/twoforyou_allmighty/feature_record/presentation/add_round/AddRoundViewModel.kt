@@ -1,5 +1,6 @@
 package com.example.twoforyou_allmighty.feature_record.presentation.add_round
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -89,19 +90,35 @@ class AddRoundViewModel @Inject constructor(
                 val pledgeTrickNumber = _addRoundUiState.value.pledgeTrickNumber
                 val actualTrickNumber = _addRoundUiState.value.actualTrickNumber
                 var score = 0
+                Log.d("TAG", "pledgeTrickNumber : ${pledgeTrickNumber}")
+                Log.d("TAG", "actualTrickNumber : ${actualTrickNumber}")
+
+
 
                 if (actualTrickNumber >= pledgeTrickNumber) {
                     score = pledgeTrickNumber + actualTrickNumber - ((PledgeUtil.PLEDGE_DEFAULT_NUMBER - 1) * 2)
 
-                    playersMutableList.find { it == _addRoundUiState.value.mightyPlayer }?.score?.plus(score * 2)
-                    playersMutableList.find { it == _addRoundUiState.value.friendPlayer }?.score?.plus(score)
+                    val mightyPlayerIndex = playersMutableList.indexOf(_addRoundUiState.value.mightyPlayer)
+                    val friendPlayerIndex = playersMutableList.indexOf(_addRoundUiState.value.friendPlayer)
+
+                    playersMutableList[mightyPlayerIndex] = playersMutableList[mightyPlayerIndex].copy(
+                        name = _addRoundUiState.value.mightyPlayer.name,
+                        score = _addRoundUiState.value.mightyPlayer.score.plus(score * 2)
+                    )
+
+                    playersMutableList[friendPlayerIndex] = playersMutableList[friendPlayerIndex].copy(
+                        name = _addRoundUiState.value.mightyPlayer.name,
+                        score = _addRoundUiState.value.mightyPlayer.score.plus(score)
+                    )
+
+                    //TODO
                     playersMutableList.filter { it != _addRoundUiState.value.mightyPlayer && it != _addRoundUiState.value.friendPlayer }
                         .map { player ->
                             player.score.minus(score)
                         }
                 } else {
                     score = pledgeTrickNumber - actualTrickNumber
-
+                    Log.d("TAG", "score : ${score}")
                     playersMutableList.find { it == _addRoundUiState.value.mightyPlayer }?.score?.minus(score * 2)
                     playersMutableList.find { it == _addRoundUiState.value.friendPlayer }?.score?.minus(score)
                     playersMutableList.filter { it != _addRoundUiState.value.mightyPlayer && it != _addRoundUiState.value.friendPlayer }
@@ -122,6 +139,8 @@ class AddRoundViewModel @Inject constructor(
                             timeStamp = _recordState.value.record.timeStamp
                         )
                     )
+
+                    Log.d("TAG", "${_recordState.value.record.players}")
                     recordUseCases.updateRecord(_recordState.value.record)
                 }
             }
