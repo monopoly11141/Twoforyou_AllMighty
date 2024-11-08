@@ -59,12 +59,6 @@ class AddRecordViewModel @Inject constructor(
             is AddRecordEvent.SaveRecord -> {
                 val round = mutableListOf<Round>()
 
-                for (i in 1..10) {
-                    round.add(
-                        Round()
-                    )
-                }
-
                 viewModelScope.launch {
                     recordUseCases.addRecord(
                         Record(

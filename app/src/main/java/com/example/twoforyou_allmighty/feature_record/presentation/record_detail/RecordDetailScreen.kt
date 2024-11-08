@@ -57,7 +57,6 @@ fun RecordDetailScreen(
                 modifier = Modifier
                     .weight(1f)
             ) {
-
                 itemsIndexed(record.round) { i, oneRound ->
                     Row {
                         Text(
@@ -66,12 +65,12 @@ fun RecordDetailScreen(
                         for (player in record.players) {
                             Text(
                                 text = player.name,
-                                color = when (player) {
-                                    oneRound.mightyPlayer -> {
+                                color = when (player.name) {
+                                    oneRound.mightyPlayer.name -> {
                                         Color.Red
                                     }
 
-                                    oneRound.friendPlayer -> {
+                                    oneRound.friendPlayer.name -> {
                                         Color.Yellow
                                     }
 
