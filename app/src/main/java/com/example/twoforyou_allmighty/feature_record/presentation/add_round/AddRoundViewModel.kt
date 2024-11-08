@@ -1,6 +1,5 @@
 package com.example.twoforyou_allmighty.feature_record.presentation.add_round
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -78,14 +77,6 @@ class AddRoundViewModel @Inject constructor(
 
             is AddRoundEvent.SaveRound -> {
 
-                val round = Round(
-                    mightyPlayer = _addRoundUiState.value.mightyPlayer,
-                    friendPlayer = _addRoundUiState.value.friendPlayer,
-                    pledgeTrickNumber = _addRoundUiState.value.pledgeTrickNumber,
-                    actualTrickNumber = _addRoundUiState.value.actualTrickNumber,
-                    trumpSuit = _addRoundUiState.value.trumpSuit,
-                )
-
                 val playersMutableList = _recordState.value.record.players.toMutableList()
 
                 val pledgeTrickNumber = _addRoundUiState.value.pledgeTrickNumber
@@ -94,6 +85,14 @@ class AddRoundViewModel @Inject constructor(
 
                 val mightyPlayerIndex = playersMutableList.indexOf(_addRoundUiState.value.mightyPlayer)
                 val friendPlayerIndex = playersMutableList.indexOf(_addRoundUiState.value.friendPlayer)
+
+                val round = Round(
+                    mightyPlayer = playersMutableList[mightyPlayerIndex],
+                    friendPlayer = playersMutableList[friendPlayerIndex],
+                    pledgeTrickNumber = _addRoundUiState.value.pledgeTrickNumber,
+                    actualTrickNumber = _addRoundUiState.value.actualTrickNumber,
+                    trumpSuit = _addRoundUiState.value.trumpSuit,
+                )
 
                 if (actualTrickNumber >= pledgeTrickNumber) {
                     score = pledgeTrickNumber + actualTrickNumber - ((PledgeUtil.PLEDGE_DEFAULT_NUMBER - 1) * 2)
@@ -157,16 +156,12 @@ class AddRoundViewModel @Inject constructor(
                         )
                     )
 
-                    Log.d("TAG", "${_recordState.value.record.players}")
                     recordUseCases.updateRecord(_recordState.value.record)
                 }
 
             }
 
             is AddRoundEvent.ChangeRound -> {
-
-            }
-
 
 //                val round = Round(
 //                    mightyPlayer = _addRoundUiState.value.mightyPlayer,
@@ -191,49 +186,52 @@ class AddRoundViewModel @Inject constructor(
 //                if (actualTrickNumber >= pledgeTrickNumber) {
 //                    score = pledgeTrickNumber + actualTrickNumber - ((PledgeUtil.PLEDGE_DEFAULT_NUMBER - 1) * 2)
 //
-//                    playersMutableList[mightyPlayerIndex] = playersMutableList[mightyPlayerIndex].copy(
-//                        name = _addRoundUiState.value.mightyPlayer.name,
-//                        score = _addRoundUiState.value.mightyPlayer.score.plus(score * 2)
-//                    )
+//                    playersMutableList.forEachIndexed { index, player ->
+//                        when (index) {
+//                            mightyPlayerIndex -> {
+//                                playersMutableList[mightyPlayerIndex] = player.copy(
+//                                    score = _addRoundUiState.value.mightyPlayer.score.plus(score * 2)
+//                                )
+//                            }
 //
-//                    playersMutableList[friendPlayerIndex] = playersMutableList[friendPlayerIndex].copy(
-//                        name = _addRoundUiState.value.friendPlayer.name,
-//                        score = _addRoundUiState.value.friendPlayer.score.plus(score)
-//                    )
+//                            friendPlayerIndex -> {
+//                                playersMutableList[friendPlayerIndex] = player.copy(
+//                                    score = _addRoundUiState.value.friendPlayer.score.plus(score)
+//                                )
+//                            }
 //
-//                    for (i in 0..4) {
-//                        if (i == mightyPlayerIndex || i == friendPlayerIndex) {
-//                            continue
+//                            else -> {
+//                                playersMutableList[index] = player.copy(
+//                                    score = player.score.minus(score)
+//                                )
+//                            }
 //                        }
-//                        playersMutableList[i] = playersMutableList[i].copy(
-//                            name = playersMutableList[i].name,
-//                            score = playersMutableList[i].score.minus(score)
-//                        )
 //                    }
 //                } else {
 //                    score = pledgeTrickNumber - actualTrickNumber
 //
-//                    playersMutableList[mightyPlayerIndex] = playersMutableList[mightyPlayerIndex].copy(
-//                        name = _addRoundUiState.value.mightyPlayer.name,
-//                        score = _addRoundUiState.value.mightyPlayer.score.minus(score * 2)
-//                    )
+//                    playersMutableList.forEachIndexed { index, player ->
+//                        when (index) {
+//                            mightyPlayerIndex -> {
+//                                playersMutableList[mightyPlayerIndex] = player.copy(
+//                                    score = _addRoundUiState.value.mightyPlayer.score.minus(score * 2)
+//                                )
+//                            }
 //
-//                    playersMutableList[friendPlayerIndex] = playersMutableList[friendPlayerIndex].copy(
-//                        name = _addRoundUiState.value.friendPlayer.name,
-//                        score = _addRoundUiState.value.friendPlayer.score.minus(score)
-//                    )
+//                            friendPlayerIndex -> {
+//                                playersMutableList[friendPlayerIndex] = player.copy(
+//                                    score = _addRoundUiState.value.friendPlayer.score.minus(score)
+//                                )
+//                            }
 //
-//                    for (i in 0..4) {
-//                        if (i == mightyPlayerIndex || i == friendPlayerIndex) {
-//                            continue
+//                            else -> {
+//                                playersMutableList[index] = player.copy(
+//                                    score = player.score.plus(score)
+//                                )
+//                            }
 //                        }
-//                        playersMutableList[i] = playersMutableList[i].copy(
-//                            name = playersMutableList[i].name,
-//                            score = playersMutableList[i].score.plus(score)
-//                        )
 //                    }
 //                }
-//
 //                viewModelScope.launch(Dispatchers.IO) {
 //                    _recordState.value = _recordState.value.copy(
 //                        record = Record(
@@ -248,6 +246,8 @@ class AddRoundViewModel @Inject constructor(
 //                    )
 //                    recordUseCases.updateRecord(_recordState.value.record)
 //                }
+
+            }
         }
     }
 

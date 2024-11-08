@@ -65,12 +65,12 @@ fun RecordDetailScreen(
                         for (player in record.players) {
                             Text(
                                 text = player.name,
-                                color = when (player.name) {
-                                    oneRound.mightyPlayer.name -> {
+                                color = when (player) {
+                                    oneRound.mightyPlayer -> {
                                         Color.Red
                                     }
 
-                                    oneRound.friendPlayer.name -> {
+                                    oneRound.friendPlayer -> {
                                         Color.Yellow
                                     }
 
